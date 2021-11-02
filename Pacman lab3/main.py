@@ -39,8 +39,8 @@ ghosts = []
 for i in range(app_config.enemies_cnt):
     (posX, posY) = app_config.ghosts_start_positions[i]
     ghosts.append(Ghost(i, posX, posY, 0, 0))
-algorithm = ' minimax'
-# algorithm = ' expectimax'
+algorithm = '1'
+#algorithm = '2'
 start = timer()
 
 
@@ -49,7 +49,8 @@ while run:
     pygame.time.delay(80)
 
     if check_game_end():
-        f = open('statistics.csv', 'a').write('win ' + str(timer() - start) + ' ' + str(state.score) + algorithm + '\n')
+        f = open('statistics.csv', 'a').write('2' + '\t' + str(timer() - start) + '\t' + str(state.score) + '\t' +
+                                              str(algorithm) + '\n')
         while run:
             display.display_win_window()
             display.update_screen()
@@ -57,7 +58,8 @@ while run:
                 if event.type == pygame.QUIT:
                     run = False
     if check_pacman_die():
-        f = open('statistics.csv', 'a').write('loss ' + str(timer() - start) + ' ' + str(state.score) + algorithm + '\n')
+        f = open('statistics.csv', 'a').write('0' + '\t' + str(timer() - start) + '\t' + str(state.score) + '\t' +
+                                              str(algorithm) + '\n')
         while run:
             display.display_loss_window()
             display.update_screen()
@@ -69,7 +71,7 @@ while run:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            f = open('statistics.csv', 'a').write('not_finished ' + str(timer() - start) + ' ' + str(state.score) +
+            f = open('statistics.csv', 'a').write('1' + '\t' + str(timer() - start) + '\t' + str(state.score) + '\t' +
                                                   str(algorithm) + '\n')
             run = False
 
